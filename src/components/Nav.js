@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 
 export default class Nav extends Component {
     render() {
+        var {list} = this.props
+        var allCart = 0;
+        list.map((val, index) => {
+            allCart += val.quatity
+            return null
+        })
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -25,7 +31,7 @@ export default class Nav extends Component {
                                 <li className="nav-item"><a href="https://colorlib.com/preview/theme/winkel/about.html" className="nav-link">About</a></li>
                                 <li className="nav-item"><a href="https://colorlib.com/preview/theme/winkel/blog.html" className="nav-link">Blog</a></li>
                                 <li className="nav-item"><a href="https://colorlib.com/preview/theme/winkel/contact.html" className="nav-link">Contact</a></li>
-                                <li className="nav-item cta cta-colored"><a href="https://colorlib.com/preview/theme/winkel/cart.html" className="nav-link"><span className="icon-shopping_cart" />[0]</a></li>
+                                <li className="nav-item cta cta-colored"><a href="/" className="nav-link"><span className="icon-shopping_cart" />[{allCart}]</a></li>
                             </ul>
                         </div>
                     </div>

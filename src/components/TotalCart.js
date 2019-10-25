@@ -11,9 +11,12 @@ export default class TotalCart extends Component {
             // subtotal.toFixed(2)
         })
         // console.log(subtotal)
-        var  delivery = subtotal * 5 / 100
-        var discount = subtotal * 10 / 100
-        var total = subtotal - (delivery + discount)
+        var  delivery = (subtotal * 5 / 100)
+        var discount = (subtotal * 10 / 100)
+        var total = (subtotal - (delivery + discount)).toFixed(2)
+        subtotal= subtotal.toFixed(2)
+        delivery= delivery.toFixed(2)
+        discount= discount.toFixed(2)
         return (
             <div>
                 <div className="row justify-content-center">

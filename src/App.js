@@ -145,7 +145,7 @@ export default class App extends Component {
       list,
       showCart
     })
-    console.log(this.state.showCart)
+    // console.log(this.state.showCart)
   }
   render() {
     // console.log(":V")
@@ -154,7 +154,7 @@ export default class App extends Component {
       <div>
         <div>
           <Setup/>
-          <Nav/>
+          <Nav list={this.state.list}/>
           <Head/>
           <section className="ftco-section bg-light">
               <div className="container">

@@ -10,7 +10,10 @@ export default class Cart extends Component{
     onChange (e, id) {
         // console.log(id)
         // console.log(e.target.value)
-        this.props.onChangeCart(e.target.value, id)
+        var qua = e.target.value
+        qua = qua!=0? Math.floor(qua) : qua
+        qua = qua<0? 0 : qua
+        this.props.onChangeCart(qua, id)
     }
     removeCart = (e, id) => {
         e.preventDefault()
@@ -21,6 +24,7 @@ export default class Cart extends Component{
         // console.log(list)
         var showListCart = list.map((val, index) => {
             var total = val.quatity * val.price * (100 - val.status) / 100
+            total = total.toFixed(2);
             if (val.isCart){
                 return (
                     <tr key={index} className="text-center">
@@ -34,13 +38,13 @@ export default class Cart extends Component{
                         <h3>{val.name}</h3>
                         <p>Far far away, behind the word mountains, far from the countries</p>
                     </td>
-                    <td className="price">{val.price * (100 - val.status) / 100}.00$</td>
+                    <td className="price">{(val.price * (100 - val.status) / 100).toFixed(2)}$</td>
                     <td className="quantity">
                         <div className="input-group mb-3">
-                            <input type="number" name="quantity" className="quantity form-control input-number" min={1} max={100} value={val.quatity} onChange={(e) => this.onChange(e, val.id)}/>
+                            <input type="number" name="quantity" className="quantity form-control input-number" step={1} min={1} max={100} value={val.quatity} onChange={(e) => this.onChange(e, val.id)}/>
                         </div>
                     </td>
-                    <td className="total">{total}.00$</td>
+                    <td className="total">{total}$</td>
                     </tr>
                 )
             }
