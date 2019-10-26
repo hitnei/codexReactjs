@@ -11,6 +11,7 @@ export default class Cart extends Component{
         // console.log(id)
         // console.log(e.target.value)
         var qua = e.target.value
+        qua = qua > 100? 100 : qua
         qua = qua!=0? Math.floor(qua) : qua
         qua = qua<0? 0 : qua
         this.props.onChangeCart(qua, id)
