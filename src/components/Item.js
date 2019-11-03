@@ -20,7 +20,7 @@ export default class Item extends Component {
                         <h3><a href="/">{name}</a></h3>
                         <div className="d-flex">
                             <div className="pricing">
-                                <p className="price"><span className="mr-2 price-dc">{price}.00$</span><span className="price-sale">{price*(100-status)/100}.00$</span></p>
+                                <p className="price"><span className="mr-2 price-dc">{price.toFixed(2)}$</span><span className="price-sale">{(price*(100-status)/100).toFixed(2)}$</span></p>
                             </div>
                             <div className="rating">
                                 <p className="text-right">

@@ -9,6 +9,12 @@ import Sidebar from './components/Sidebar'
 import Cart from './components/Cart'
 import TotalCart from './components/TotalCart'
 // import Cart from './components/Cart'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 export default class App extends Component {
   constructor(props) {
@@ -85,15 +91,15 @@ export default class App extends Component {
           quatity: 0
         },
       ],
-      currentCart:[],
+      cart: [],
       showCart: 0,
       cartControl: 0
     }
   }
-  findById(list, id){
+  findById(list, id) {
     var rs = -1
     list.forEach((item, index) => {
-      if (item.id === id){
+      if (item.id === id) {
         rs = index
       }
     });
@@ -109,14 +115,14 @@ export default class App extends Component {
       categoryCurrent: 0
     })
   }
-  onAddCart (id) {
+  onAddCart(id) {
     var index = this.findById(this.state.list, id)
     // console.log(index)
     var list = this.state.list
-    if (index !== -1){
+    if (index !== -1) {
       list[index].isCart = true
       list[index].quatity++
-      var showCart = list[index].quatity===1? ++this.state.showCart : this.state.showCart
+      var showCart = list[index].quatity === 1 ? ++this.state.showCart : this.state.showCart
       this.setState({
         list,
         showCart
@@ -124,7 +130,7 @@ export default class App extends Component {
     }
     // console.log(this.state.showCart)
   }
-  onChangeCart (qua, id) {
+  onChangeCart(qua, id) {
     // console.log(qua)
     // console.log(id)
     var list = this.state.list
@@ -135,7 +141,7 @@ export default class App extends Component {
       list
     })
   }
-  removeCart (id) {
+  removeCart(id) {
     var list = this.state.list
     var index = this.findById(list, id)
     list[index].isCart = false
@@ -151,32 +157,38 @@ export default class App extends Component {
     // console.log(":V")
     // console.log(this.state.showCart==0)
     return (
-      <div>
-        <div>
-          <Setup/>
-          <Nav list={this.state.list}/>
-          <Head/>
-          <section className="ftco-section bg-light">
-              <div className="container">
+      <Router>
+        <Switch>
+          <div>
+            <Setup />
+            <Nav list={this.state.list} />
+            <Route exact path="/home">
+              <Head />
+              <section className="ftco-section bg-light">
+                <div className="container">
                   <div className="row">
-                      <div className="col-md-8 col-lg-10 order-md-last">
-                          <Order setItem = {this.state.list} categoryCurrent = {this.state.categoryCurrent} onReset = {this.onReset} onAddCart={(id) => this.onAddCart(id)}/>
-                      </div>
-                      <div className="col-md-4 col-lg-2 sidebar">
-                          <Sidebar categories={this.state.categories} onReceiveType = {this.onReceiveType}/>
-                      </div>
+                    <div className="col-md-8 col-lg-10 order-md-last">
+                      <Order setItem={this.state.list} categoryCurrent={this.state.categoryCurrent} onReset={this.onReset} onAddCart={(id) => this.onAddCart(id)} />
+                    </div>
+                    <div className="col-md-4 col-lg-2 sidebar">
+                      <Sidebar categories={this.state.categories} onReceiveType={this.onReceiveType} />
+                    </div>
                   </div>
-              </div>
-          </section>
-          <div className="container">
-            {this.state.showCart!==0? <Cart list={this.state.list} onChangeCart={(qua, id) => this.onChangeCart(qua, id)} removeCart={(id) => this.removeCart(id)}/> : ""}
-            {this.state.showCart!==0? <TotalCart list={this.state.list} /> : ""}
-          </div>
-          <Footer/>
-          <Loader/>
-        </div>
+                </div>
+              </section>
+            </Route>
 
-      </div>
+            <Route path="/cart">
+              <div className="container">
+                {this.state.showCart !== 0 ? <Cart list={this.state.list} cart={this.state.cart} onChangeCart={(qua, id) => this.onChangeCart(qua, id)} removeCart={(id) => this.removeCart(id)} /> : ""}
+                {this.state.showCart !== 0 ? <TotalCart list={this.state.list} /> : ""}
+              </div>
+            </Route>
+            <Footer />
+            <Loader />
+          </div>
+        </Switch>
+      </Router>
     )
   }
 }
