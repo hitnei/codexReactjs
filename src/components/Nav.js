@@ -24,7 +24,7 @@ export default class Nav extends Component {
                         </button>
                         <div className="collapse navbar-collapse" id="ftco-nav">
                             <ul className="navbar-nav ml-auto">
-                                <li className="nav-item"><Link to="/home" className="nav-link">Home</Link></li>
+                                <li className="nav-item"><Link to="/" className="nav-link">Home</Link></li>
                                 <li className="nav-item dropdown active">
                                     <a className="nav-link dropdown-toggle" href="/" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                                     <div className="dropdown-menu" aria-labelledby="dropdown04">
