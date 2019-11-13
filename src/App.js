@@ -15,8 +15,11 @@ import {
   Route,
   Link
 } from "react-router-dom"
+import Modal from './components/Modal'
 // require("../node_modules/bootstrap-less/js/bootstrap.js")
 // import "../node_modules/bootstrap-less/js/bootstrap.js";
+
+import './App.css'
 
 export default class App extends Component {
   constructor(props) {
@@ -145,7 +148,8 @@ export default class App extends Component {
       ],
       cart: [],
       showCart: 0,
-      cartControl: 0
+      cartControl: 0,
+      itemDetail: "null"
     }
   }
   findById(list, id) {
@@ -153,6 +157,15 @@ export default class App extends Component {
     list.forEach((item, index) => {
       if (item.id === id) {
         rs = index
+      }
+    });
+    return rs;
+  }
+  findByIdReturnObj(list, id) {
+    var rs = null
+    list.forEach((item, index) => {
+      if (item.id === id) {
+        rs = item
       }
     });
     return rs;
@@ -167,13 +180,15 @@ export default class App extends Component {
       categoryCurrent: 0
     })
   }
-  onAddCart(id) {
+  onAddCart(id, qua) {
+    // console.log(id)
+    // console.log(qua==undefined)
     var index = this.findById(this.state.list, id)
-    // console.log(index)
     var list = this.state.list
     if (index !== -1) {
       list[index].isCart = true
-      list[index].quatity++
+      list[index].quatity = qua==undefined? ++list[index].quatity : (list[index].quatity + qua)
+      // console.log(list[index].quatity);
       var showCart = list[index].quatity === 1 ? ++this.state.showCart : this.state.showCart
       this.setState({
         list,
@@ -205,6 +220,15 @@ export default class App extends Component {
     })
     // console.log(this.state.showCart)
   }
+  changeDetai(id){
+    var detail = this.findByIdReturnObj(this.state.list, id)
+    var ind = this.findById(this.state.categories, detail.category)
+    detail.categ = this.state.categories[ind].category
+    // console.log(ind)
+    this.setState({
+      itemDetail: detail
+    })
+  }
   render() {
 
     return (
@@ -219,7 +243,7 @@ export default class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-8 col-lg-10 order-md-last">
-                    <Order setItem={this.state.list} categoryCurrent={this.state.categoryCurrent} onReset={this.onReset} onAddCart={(id) => this.onAddCart(id)} />
+                    <Order setItem={this.state.list} categoryCurrent={this.state.categoryCurrent} onReset={this.onReset} onAddCart={(id) => this.onAddCart(id)} changeDetail={(id) => this.changeDetai(id)}/>
                   </div>
                   <div className="col-md-4 col-lg-2 sidebar">
                     <Sidebar categories={this.state.categories} onReceiveType={this.onReceiveType} />
@@ -239,6 +263,7 @@ export default class App extends Component {
         <Footer />
         <Loader />
         {/* </div> */}
+        <Modal itemDetail={this.state.itemDetail} onChangeCart={(id, qua) => this.onAddCart(id, qua)}/>
       </Router>
     )
   }

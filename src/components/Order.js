@@ -19,12 +19,12 @@ export default class Order extends Component {
         var showItem = this.props.setItem.map((val, index) => {
             if (this.props.categoryCurrent === 0){
                 return (
-                    <Item key={val.id} item = {val} onAddCart={this.props.onAddCart}/>
+                    <Item key={val.id} item = {val} onAddCart={this.props.onAddCart} changeDetail={this.props.changeDetail}/>
                 )
             }
             else{
                 return(
-                (val.category === this.props.categoryCurrent)? <Item key={val.id} item = {val} onAddCart={this.props.onAddCart}/> : <div key={val.id}></div>
+                (val.category === this.props.categoryCurrent)? <Item key={val.id} item = {val} onAddCart={this.props.onAddCart} changeDetail={this.props.changeDetail}/> : <div key={val.id}></div>
                 )
             }
         })
