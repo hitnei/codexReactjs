@@ -53,7 +53,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-1.jpg",
           category: 1,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 3,
         },
         {
           id: 2,
@@ -63,7 +64,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-2.webp",
           category: 1,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 2,
         },
         {
           id: 3,
@@ -73,7 +75,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-3.webp",
           category: 2,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 5,
         },
         {
           id: 4,
@@ -83,7 +86,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-4.webp",
           category: 3,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 0,
         },
         {
           id: 5,
@@ -93,7 +97,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-5.webp",
           category: 4,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 2,
         },
         {
           id: 6,
@@ -103,7 +108,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-1.jpg",
           category: 1,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 4,
         },
         {
           id: 7,
@@ -113,7 +119,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-2.webp",
           category: 1,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 0,
         },
         {
           id: 8,
@@ -123,7 +130,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-3.webp",
           category: 2,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 0,
         },
         {
           id: 9,
@@ -133,7 +141,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-4.webp",
           category: 3,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 3,
         },
         {
           id: 10,
@@ -143,7 +152,8 @@ export default class App extends Component {
           link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-5.webp",
           category: 4,
           isCart: false,
-          quatity: 0
+          quatity: 0,
+          rate: 2,
         },
       ],
       cart: [],

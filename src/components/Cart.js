@@ -30,7 +30,7 @@ export default class Cart extends Component{
                 return (
                     <tr key={index} className="text-center">
                     <td className="product-remove"  onClick={(event, id) => this.removeCart(event, val.id)}>
-                        <a href="/"><span className="ion-ios-close"/></a>
+                        <a href="/" style={{padding: "18px 8px 8px 10px"}}><span className="material-icons">delete</span></a>
                     </td>
                     <td className="image-prod">
                         <img className="img" alt={val.name} src={val.link}/>

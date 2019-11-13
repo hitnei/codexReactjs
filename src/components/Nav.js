@@ -37,7 +37,7 @@ export default class Nav extends Component {
                                 <li className="nav-item"><a href="/" className="nav-link">About</a></li>
                                 <li className="nav-item"><a href="/" className="nav-link">Blog</a></li>
                                 <li className="nav-item"><a href="/" className="nav-link">Contact</a></li>
-                                <li className="nav-item cta cta-colored"><Link to="/cart" className="nav-link"><span className="icon-shopping_cart" />[{allCart}]</Link></li>
+                                <li className="nav-item cta cta-colored"><Link to="/cart" className="nav-link"><span className="material-icons">shopping_cart</span>[{allCart}]</Link></li>
                             </ul>
                         </div>
                     </div>

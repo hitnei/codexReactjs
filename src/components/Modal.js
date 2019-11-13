@@ -3,7 +3,7 @@ import ModalBody from './ModalBody';
 
 class Modal extends Component {
     render() {
-        var {itemDetail} = this.props
+        var { itemDetail } = this.props
         // console.log(this.props.itemDetail)
         return (
             <div className="modal fade bd-example-modal-lg" id="myModal">
@@ -16,7 +16,7 @@ class Modal extends Component {
                         </div>
                         {/* Modal body */}
                         <div className="modal-body">
-                            <ModalBody itemDetail={itemDetail} onChangeCart={this.props.onChangeCart}/>                            
+                            <ModalBody itemDetail={itemDetail} onChangeCart={this.props.onChangeCart} />
                         </div>
                         {/* Modal footer */}
                         {/* <div className="modal-footer">
