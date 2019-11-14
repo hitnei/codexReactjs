@@ -8,7 +8,6 @@ class ModalBody extends Component {
             tempStar: this.props.itemDetail.rate
         }
     }
-
     onChange(e, id) {
         var qua = e.target.value
         qua = qua > 100 ? 100 : qua
@@ -46,6 +45,11 @@ class ModalBody extends Component {
     onSendRate(e, id, ind){
         e.preventDefault()
         this.props.onSendRate(id, ind)
+    }
+    componentWillReceiveProps(newProps){
+      this.setState({
+          tempStar: newProps.itemDetail.rate
+      })
     }
     render() {
         var { link, name, price, categ, quatity, status, id, rate } = this.props.itemDetail

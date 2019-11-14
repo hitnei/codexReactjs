@@ -30,7 +30,11 @@ export default class Item extends Component {
     onSendRate = (e, id, ind) => {
         e.preventDefault()
         this.props.onSendRate(id, ind)
-        
+    }
+    componentWillReceiveProps(newProps){
+      this.setState({
+          tempStar: newProps.item.rate
+      })
     }
     render() {
         var { link, name, status, price, id, rate } = this.props.item;
