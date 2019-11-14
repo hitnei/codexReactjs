@@ -16,7 +16,7 @@ class Modal extends Component {
                         </div>
                         {/* Modal body */}
                         <div className="modal-body">
-                            <ModalBody itemDetail={itemDetail} onChangeCart={this.props.onChangeCart} />
+                            <ModalBody itemDetail={itemDetail} onChangeCart={this.props.onChangeCart} onSendRate={this.props.onSendRate}/>
                         </div>
                         {/* Modal footer */}
                         {/* <div className="modal-footer">

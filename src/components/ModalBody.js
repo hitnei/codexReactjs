@@ -4,38 +4,55 @@ class ModalBody extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            qua: 1
+            qua: 1,
+            tempStar: this.props.itemDetail.rate
         }
     }
 
     onChange(e, id) {
-        // console.log(id)
-        // console.log(e.target.value)
         var qua = e.target.value
         qua = qua > 100 ? 100 : qua
         qua = qua != 0 ? Math.floor(qua) : qua
         qua = qua <= 0 ? 1 : qua
-        // this.props.onChangeCart(qua, id)
         this.setState({ qua: qua })
     }
     onAddCart(e, id, qua, name) {
-        // console.log(id);
-        // console.log(qua);
         setTimeout(() => {
             alert(`Has add ${qua} "${name}" into Cart!`)
         }, 300);
         this.props.onChangeCart(id, qua)
     }
-    rateStar(e){
+    onResetStar = () => {
+        this.setState({
+            tempStar: this.props.itemDetail.rate
+        })
+    }
+    onChangeStar = (e, id, ind) => {
+        e.preventDefault()        
+        this.setState({
+            tempStar: ind
+        })
+    }
+    onCheckType = (i) => {
+        var {tempStar} = this.state
+        var {rate} = this.props.itemDetail
+        if (typeof(tempStar)==="undefined")
+            if (rate>=i) return "star"
+            else return "start_border"
+        else
+            if (tempStar>=i) return "star"
+            else return "star_border"
+    }
+    onSendRate(e, id, ind){
         e.preventDefault()
-        // console.log(e)
+        this.props.onSendRate(id, ind)
     }
     render() {
         var { link, name, price, categ, quatity, status, id, rate } = this.props.itemDetail
-        // console.log(this.props.itemDetail)
+        var { tempStar } = this.state
+        // console.log(tempStar);
+        
         var totalPrice = ((price * (100 - status) / 100).toFixed(2))
-        // console.log(totalPrice);
-
         return (
             <div>
                 <div className="card">
@@ -55,13 +72,19 @@ class ModalBody extends Component {
                             <article className="card-body p-5">
                                 <h3 className="title mb-3">{name}</h3>
                                 <div className="rating d-flex">
-                                    <p className="text-left mr-4">
+                                    <p className="text-left mr-4" onMouseLeave={this.onResetStar}>
                                         <a href="#" className="mr-2">5.0</a>
-                                        <a href="/"><span onClick={(event) => this.rateStar(event)} className="material-icons" style={{ fontSize: "12px" }}>{rate>=1? "star" : "star_border"}</span></a>
-                                        <a href="/"><span className="material-icons" style={{ fontSize: "12px" }}>{rate>=2? "star" : "star_border"}</span></a>
-                                        <a href="/"><span className="material-icons" style={{ fontSize: "12px" }}>{rate>=3? "star" : "star_border"}</span></a>
-                                        <a href="/"><span className="material-icons" style={{ fontSize: "12px" }}>{rate>=4? "star" : "star_border"}</span></a>
-                                        <a href="/"><span className="material-icons" style={{ fontSize: "12px" }}>{rate>=5? "star" : "star_border"}</span></a>
+                                        {/* <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "1")}>{this.onCheckType(1)}</span></a>
+                                        <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "2")}>{this.onCheckType(2)}</span></a>
+                                        <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "3")}>{this.onCheckType(3)}</span></a>
+                                        <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "4")}>{this.onCheckType(4)}</span></a>
+                                        <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "5")}>{this.onCheckType(5)}</span></a> */}
+                                        
+                                        <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "1")} onClick={(e) => this.onSendRate(e, id, 1)}>{tempStar>=1? "star" : "star_border"}</span></a>
+                                        <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "2")} onClick={(e) => this.onSendRate(e, id, 2)}>{tempStar>=2? "star" : "star_border"}</span></a>
+                                        <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "3")} onClick={(e) => this.onSendRate(e, id, 3)}>{tempStar>=3? "star" : "star_border"}</span></a>
+                                        <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "4")} onClick={(e) => this.onSendRate(e, id, 4)}>{tempStar>=4? "star" : "star_border"}</span></a>
+                                        <a href="#"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "5")} onClick={(e) => this.onSendRate(e, id, 5)}>{tempStar>=5? "star" : "star_border"}</span></a>
                                     </p>
                                     <p className="text-left mr-4">
                                         <a href="#" className="mr-2">100 <span>Rating</span></a>

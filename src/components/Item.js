@@ -2,19 +2,39 @@ import React, { Component } from 'react'
 // import Modal from './Modal';
 
 export default class Item extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            tempStar: this.props.item.rate,
+        }
+    }
     onAddCart = (e, id) => {
         e.preventDefault()
         this.props.onAddCart(id)
-        // console.log(id)
     }
-
     changeDetail = (e, id) => {
         e.preventDefault()
         this.props.changeDetail(id)
     }
-
+    onChangeStar = (e, id, ind) => {
+        e.preventDefault()        
+        this.setState({
+            tempStar: ind
+        })    
+    }
+    onResetStar = () => {        
+        this.setState({
+            tempStar: this.props.item.rate
+        })
+    }
+    onSendRate = (e, id, ind) => {
+        e.preventDefault()
+        this.props.onSendRate(id, ind)
+        
+    }
     render() {
         var { link, name, status, price, id, rate } = this.props.item;
+        var { tempStar } = this.state
         
         return (
             <div className="col-sm-6 col-md-6 col-lg-4 ftco-animate fadeInUp ftco-animated">
@@ -30,12 +50,12 @@ export default class Item extends Component {
                                 <p className="price"><span className="mr-2 price-dc">{price.toFixed(2)}$</span><span className="price-sale">{(price * (100 - status) / 100).toFixed(2)}$</span></p>
                             </div>
                             <div className="rating">
-                                <p className="text-right">
-                                    <a href="/"><span className="material-icons" style={{ fontSize: "20px" }}>{rate>=1? "star" : "star_border"}</span></a>
-                                    <a href="/"><span className="material-icons" style={{ fontSize: "20px" }}>{rate>=2? "star" : "star_border"}</span></a>
-                                    <a href="/"><span className="material-icons" style={{ fontSize: "20px" }}>{rate>=3? "star" : "star_border"}</span></a>
-                                    <a href="/"><span className="material-icons" style={{ fontSize: "20px" }}>{rate>=4? "star" : "star_border"}</span></a>
-                                    <a href="/"><span className="material-icons" style={{ fontSize: "20px" }}>{rate>=5? "star" : "star_border"}</span></a>
+                                <p className="text-right" onMouseLeave={this.onResetStar}>
+                                    <a href="/"><span className="material-icons" style={{ fontSize: "16px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "1")} onClick={(e) => this.onSendRate(e, id, 1)}>{tempStar>=1? "star" : "star_border"}</span></a>
+                                    <a href="/"><span className="material-icons" style={{ fontSize: "16px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "2")} onClick={(e) => this.onSendRate(e, id, 2)}>{tempStar>=2? "star" : "star_border"}</span></a>
+                                    <a href="/"><span className="material-icons" style={{ fontSize: "16px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "3")} onClick={(e) => this.onSendRate(e, id, 3)}>{tempStar>=3? "star" : "star_border"}</span></a>
+                                    <a href="/"><span className="material-icons" style={{ fontSize: "16px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "4")} onClick={(e) => this.onSendRate(e, id, 4)}>{tempStar>=4? "star" : "star_border"}</span></a>
+                                    <a href="/"><span className="material-icons" style={{ fontSize: "16px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "5")} onClick={(e) => this.onSendRate(e, id, 5)}>{tempStar>=5? "star" : "star_border"}</span></a>
                                 </p>
                             </div>
                         </div>

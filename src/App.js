@@ -239,8 +239,16 @@ export default class App extends Component {
       itemDetail: detail
     })
   }
+  onSendRate(id, ind){
+    // console.log(id + " " + ind);
+    var {list} = this.state
+    var index = this.findById(list, id)
+    list[index].rate = ind
+    this.setState({
+      list
+    })
+  }
   render() {
-
     return (
       <Router>
         {/* <div> */}
@@ -253,7 +261,7 @@ export default class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-8 col-lg-10 order-md-last">
-                    <Order setItem={this.state.list} categoryCurrent={this.state.categoryCurrent} onReset={this.onReset} onAddCart={(id) => this.onAddCart(id)} changeDetail={(id) => this.changeDetai(id)}/>
+                    <Order setItem={this.state.list} categoryCurrent={this.state.categoryCurrent} onReset={this.onReset} onAddCart={(id) => this.onAddCart(id)} changeDetail={(id) => this.changeDetai(id)} onSendRate={(id, ind) => this.onSendRate(id, ind)}/>
                   </div>
                   <div className="col-md-4 col-lg-2 sidebar">
                     <Sidebar categories={this.state.categories} onReceiveType={this.onReceiveType} />
@@ -273,7 +281,7 @@ export default class App extends Component {
         <Footer />
         <Loader />
         {/* </div> */}
-        <Modal itemDetail={this.state.itemDetail} onChangeCart={(id, qua) => this.onAddCart(id, qua)}/>
+        <Modal itemDetail={this.state.itemDetail} onChangeCart={(id, qua) => this.onAddCart(id, qua)} onSendRate={(id, ind) => this.onSendRate(id, ind)}/>
       </Router>
     )
   }
