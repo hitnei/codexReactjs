@@ -31,13 +31,13 @@ export default class Item extends Component {
         e.preventDefault()
         this.props.onSendRate(id, ind)
     }
-    componentWillReceiveProps(newProps){
+    UNSAFE_componentWillReceiveProps(newProps){
       this.setState({
           tempStar: newProps.item.rate
       })
     }
     render() {
-        var { link, name, status, price, id, rate } = this.props.item;
+        var { link, name, status, price, id } = this.props.item;
         var { tempStar } = this.state
         
         return (
@@ -65,7 +65,7 @@ export default class Item extends Component {
                         </div>
                         <p className="bottom-area d-flex px-3">
                             <a href="/" className="add-to-cart text-center py-2 mr-1" onClick={(event) => this.onAddCart(event, id)} ><span>Add to cart <i className="material-icons" style={{fontSize: "11px"}}>add_shopping_cart</i></span></a>
-                            <a className="buy-now text-center py-2" data-toggle="modal" data-target="#myModal" onClick={(event) => this.changeDetail(event, id)}>Detail<span><i className="material-icons" style={{fontSize: "11px"}}>menu</i></span></a>
+                            <a href="/" className="buy-now text-center py-2" data-toggle="modal" data-target="#myModal" onClick={(event) => this.changeDetail(event, id)}>Detail<span><i className="material-icons" style={{fontSize: "11px"}}>menu</i></span></a>
                         </p>
                     </div>
                 </div>
