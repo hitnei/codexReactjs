@@ -4,7 +4,7 @@ class ModalBody extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            qua: 1,
+            qua: this.props.itemDetail.quatity,
             tempStar: this.props.itemDetail.rate
         }
     }
@@ -15,11 +15,11 @@ class ModalBody extends Component {
         qua = qua <= 0 ? 1 : qua
         this.setState({ qua: qua })
     }
-    onAddCart(e, id, qua, name) {
+    onAddCart(e, val, qua, name) {
+        this.props.onChangeCart(qua, val)
         setTimeout(() => {
-            alert(`Has add ${qua} "${name}" into Cart!`)
+          alert(`Has add ${qua} "${name}" into Cart!`)
         }, 300);
-        this.props.onChangeCart(id, qua)
     }
     onResetStar = () => {
         this.setState({
@@ -52,9 +52,8 @@ class ModalBody extends Component {
       })
     }
     render() {
-        var { link, name, price, categ, status, id } = this.props.itemDetail
+        var { link, name, price, categ, status, id, quatity } = this.props.itemDetail
         var { tempStar } = this.state
-        // console.log(tempStar);
         var imgLink = `${link}`
         var totalPrice = ((price * (100 - status) / 100).toFixed(2))
         return (
@@ -78,12 +77,6 @@ class ModalBody extends Component {
                                 <div className="rating d-flex">
                                     <p className="text-left mr-4" onMouseLeave={this.onResetStar}>
                                         <a href="/" className="mr-2">5.0</a>
-                                        {/* <a href="/"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "1")}>{this.onCheckType(1)}</span></a>
-                                        <a href="/"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "2")}>{this.onCheckType(2)}</span></a>
-                                        <a href="/"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "3")}>{this.onCheckType(3)}</span></a>
-                                        <a href="/"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "4")}>{this.onCheckType(4)}</span></a>
-                                        <a href="/"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "5")}>{this.onCheckType(5)}</span></a> */}
-                                        
                                         <a href="/"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "1")} onClick={(e) => this.onSendRate(e, id, 1)}>{tempStar>=1? "star" : "star_border"}</span></a>
                                         <a href="/"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "2")} onClick={(e) => this.onSendRate(e, id, 2)}>{tempStar>=2? "star" : "star_border"}</span></a>
                                         <a href="/"><span className="material-icons" style={{ fontSize: "12px" }} onMouseEnter ={(e)=>this.onChangeStar(e, id, "3")} onClick={(e) => this.onSendRate(e, id, 3)}>{tempStar>=3? "star" : "star_border"}</span></a>
@@ -127,7 +120,7 @@ class ModalBody extends Component {
                                             <dt>Quantity: </dt> */}
                                         <h6 className="">Quantity</h6>
                                         <div className="input-group mb-3">
-                                            <input type="number" name="quantity" className="quantity form-control input-number" step={1} min={1} max={100} defaultValue={this.state.qua} onChange={(e) => this.onChange(e, id)} />
+                                            <input type="number" name="quantity" className="quantity form-control input-number" step={1} min={1} max={100} defaultValue={quatity} onChange={(e) => this.onChange(e, id)} />
                                         </div>
                                         {/* </dl>  item-property .// */}
                                     </div> {/* col.// */}
@@ -153,7 +146,7 @@ class ModalBody extends Component {
                                 </div> {/* row.// */}
                                 <hr />
                                 {/* <a href="/" className="btn btn-lg btn-primary text-uppercase"> Buy now </a> */}
-                                <a href="/" className="btn btn-lg btn-outline-primary text-uppercase" data-dismiss="modal" onClick={(event) => this.onAddCart(event, id, this.state.qua, name)}> <i className="fas fa-shopping-cart" /> Add to cart </a>
+                                <a href="/" className="btn btn-lg btn-outline-primary text-uppercase" data-dismiss="modal" onClick={(event) => this.onAddCart(event, this.props.itemDetail, this.state.qua, name)}> <i className="fas fa-shopping-cart" /> Add to cart </a>
                             </article> {/* card-body.// */}
                         </aside> {/* col.// */}
                     </div> {/* row.// */}

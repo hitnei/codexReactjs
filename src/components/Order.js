@@ -2,29 +2,19 @@ import React, { Component } from 'react'
 import Item from './Item'
 
 export default class Order extends Component {
-    // constructor(props){
-    //     super(props);
-    //     // state = {
-
-    //     // }
-    // }
     onReset = (e) => {
-        // console.log(e)
         this.props.onReset()
     }
-    // onAddCart = (id) => {
-    //     console.log(id)
-    // }
     render() {
         var showItem = this.props.setItem.map((val, index) => {
             if (this.props.categoryCurrent === 0){
                 return (
-                    <Item key={val.id} item = {val} onAddCart={this.props.onAddCart} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate}/>
+                    <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate} onAddCart={this.props.onAddCart}/>
                 )
             }
             else{
                 return(
-                (val.category === this.props.categoryCurrent)? <Item key={val.id} item = {val} onAddCart={this.props.onAddCart} changeDetail={this.props.changeDetail}/> : <div key={val.id}></div>
+                (val.category === this.props.categoryCurrent)? <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onAddCart={this.props.onAddCart}/> : <div key={val.id}></div>
                 )
             }
         })

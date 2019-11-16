@@ -156,10 +156,9 @@ export default class App extends Component {
           rate: 2,
         },
       ],
-      cart: [],
-      showCart: 0,
       cartControl: 0,
-      itemDetail: "null"
+      itemDetail: "null",
+      cart: JSON.parse(localStorage.getItem("cart"))
     }
   }
   findById(list, id) {
@@ -190,54 +189,49 @@ export default class App extends Component {
       categoryCurrent: 0
     })
   }
-  onAddCart(id, qua) {
-    // console.log(id)
-    // console.log(qua==undefined)
-    var index = this.findById(this.state.list, id)
-    var list = this.state.list
-    if (index !== -1) {
-      var isShowCart = this.state.showCart
-      list[index].isCart = true
-      list[index].quatity = qua === undefined ? ++list[index].quatity : (list[index].quatity + qua)
-      var showCart = list[index].quatity === 1 ? ++isShowCart : isShowCart
-      this.setState({
-        list,
-        showCart
-      })
+  onAddCart(item) {
+    item.quatity = item.quatity === 0? 1 : item.quatity
+    var {cart} = this.state
+    var index = this.findById(cart, item.id)
+    if (index === -1){
+      cart.push(item)
+    } else {
+      cart[index].quatity++
     }
-  }
-  onChangeCart(qua, id) {
-    // console.log(qua)
-    // console.log(id)
-    var list = this.state.list
-    var index = this.findById(list, id)
-    // console.log(index)
-    list[index].quatity = qua
-    this.setState({
-      list
-    })
+    this.setState({cart})
+    localStorage.setItem("cart", JSON.stringify(cart))    
   }
   removeCart(id) {
-    var list = this.state.list
-    var isShowCart = this.state.showCart
-    var index = this.findById(list, id)
-    list[index].isCart = false
-    list[index].quatity = 0
-    var showCart = --isShowCart
-    this.setState({
-      list,
-      showCart
-    })
-    // console.log(this.state.showCart)
+    var {cart} = this.state
+    var index = this.findById(cart, id)
+    cart.splice(index, 1)
+    // console.log(cart);
+    
+    this.setState({cart})
+    localStorage.setItem("cart", JSON.stringify(cart))  
+    
   }
-  changeDetai(id) {
-    var detail = this.findByIdReturnObj(this.state.list, id)
-    var ind = this.findById(this.state.categories, detail.category)
-    detail.categ = this.state.categories[ind].category
-    // console.log(ind)
-    this.setState({
-      itemDetail: detail
-    })
+  changeDetail(id) {
+    // var detail = this.findByIdReturnObj(this.state.list, id)
+    // var ind = this.findById(this.state.categories, detail.category)
+    // detail.categ = this.state.categories[ind].category
+    var {cart, list} = this.state
+    var indCart = this.findById(cart, id)
+    var indList = this.findById(list, id)
+    console.log(indCart + " " + indList);
+    
+    if (indCart !== -1){
+      this.setState({
+        itemDetail: cart[indCart]
+      })
+    } else {
+      if (indList !== -1){
+        list[indList].quatity = 1
+        this.setState({
+          itemDetail: list[indList]
+        })
+      }
+    }
   }
   onSendRate(id, ind) {
     // console.log(id + " " + ind);
@@ -248,12 +242,32 @@ export default class App extends Component {
       list
     })
   }
+  onChangeCart(qua, val) {
+    var {cart} = this.state
+    var index = this.findById(cart, val.id)
+    if (index === -1){
+      val.quatity = qua
+      cart.push(val)
+    } else {
+      cart[index].quatity = qua
+    }
+    this.setState({cart})
+    localStorage.setItem("cart", JSON.stringify(cart))
+  }
+  componentWillMount(){
+    this.setState({
+      cart: JSON.parse(localStorage.getItem("cart"))
+    })
+  }
   render() {
+    var {cart} = this.state
+    // console.log(cart.length);
+    
     return (
       <Router>
         {/* <div> */}
         <Setup />
-        <Nav list={this.state.list} />
+        <Nav cart={cart}/>
         <Switch>
           <Route exact path="/">
             <Head />
@@ -261,7 +275,7 @@ export default class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-8 col-lg-10 order-md-last">
-                    <Order setItem={this.state.list} categoryCurrent={this.state.categoryCurrent} onReset={this.onReset} onAddCart={(id) => this.onAddCart(id)} changeDetail={(id) => this.changeDetai(id)} onSendRate={(id, ind) => this.onSendRate(id, ind)} />
+                    <Order setItem={this.state.list} categoryCurrent={this.state.categoryCurrent} onReset={this.onReset} changeDetail={(id) => this.changeDetail(id)} onSendRate={(id, ind) => this.onSendRate(id, ind)} onAddCart={(item) => this.onAddCart(item)}/>
                   </div>
                   <div className="col-md-4 col-lg-2 sidebar">
                     <Sidebar categories={this.state.categories} onReceiveType={this.onReceiveType} />
@@ -273,15 +287,15 @@ export default class App extends Component {
 
           <Route path="/cart">
             <div className="container">
-              {this.state.showCart !== 0 ? <Cart list={this.state.list} cart={this.state.cart} onChangeCart={(qua, id) => this.onChangeCart(qua, id)} removeCart={(id) => this.removeCart(id)} /> : ""}
-              {this.state.showCart !== 0 ? <TotalCart list={this.state.list} /> : ""}
+              {cart.length !== 0 ? <Cart cart={cart} removeCart={(id) => this.removeCart(id)} onChangeCart={(qua, item) => this.onChangeCart(qua, item)}/> : ""}
+              {cart.length !== 0 ? <TotalCart list={this.state.list} /> : ""}
             </div>
           </Route>
         </Switch>
         <Footer />
         <Loader />
         {/* </div> */}
-        <Modal itemDetail={this.state.itemDetail} onChangeCart={(id, qua) => this.onAddCart(id, qua)} onSendRate={(id, ind) => this.onSendRate(id, ind)} />
+        <Modal itemDetail={this.state.itemDetail} onSendRate={(id, ind) => this.onSendRate(id, ind)} onChangeCart={(qua, val) => this.onChangeCart(qua, val)} />
       </Router>
     )
   }

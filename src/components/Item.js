@@ -8,9 +8,9 @@ export default class Item extends Component {
             tempStar: this.props.item.rate,
         }
     }
-    onAddCart = (e, id) => {
+    onAddCart = (e, item) => {
         e.preventDefault()
-        this.props.onAddCart(id)
+        this.props.onAddCart(item)
     }
     changeDetail = (e, id) => {
         e.preventDefault()
@@ -64,7 +64,7 @@ export default class Item extends Component {
                             </div>
                         </div>
                         <p className="bottom-area d-flex px-3">
-                            <a href="/" className="add-to-cart text-center py-2 mr-1" onClick={(event) => this.onAddCart(event, id)} ><span>Add to cart <i className="material-icons" style={{fontSize: "11px"}}>add_shopping_cart</i></span></a>
+                            <a href="/" className="add-to-cart text-center py-2 mr-1" onClick={(event) => this.onAddCart(event, this.props.item)} ><span>Add to cart <i className="material-icons" style={{fontSize: "11px"}}>add_shopping_cart</i></span></a>
                             <a href="/" className="buy-now text-center py-2" data-toggle="modal" data-target="#myModal" onClick={(event) => this.changeDetail(event, id)}>Detail<span><i className="material-icons" style={{fontSize: "11px"}}>menu</i></span></a>
                         </p>
                     </div>

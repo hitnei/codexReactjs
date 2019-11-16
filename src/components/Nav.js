@@ -4,13 +4,15 @@ import {
 } from "react-router-dom";
 
 export default class Nav extends Component {
+    countItem(){
+        var {cart} = this.props
+        var index = 0;
+        cart.forEach((elm) => {
+            index += elm.quatity
+        });
+        return index
+    }
     render() {
-        var {list} = this.props
-        var allCart = 0;
-        list.map((val, index) => {
-            allCart += val.quatity
-            return null
-        })
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light ftco_navbar bg-light ftco-navbar-light" id="ftco-navbar">
@@ -34,7 +36,7 @@ export default class Nav extends Component {
                                 <li className="nav-item"><a href="/" className="nav-link">About</a></li>
                                 <li className="nav-item"><a href="/" className="nav-link">Blog</a></li>
                                 <li className="nav-item"><a href="/" className="nav-link">Contact</a></li>
-                                <li className="nav-item cta cta-colored"><Link to="/cart" className="nav-link"><span className="material-icons">shopping_cart</span>[{allCart}]</Link></li>
+                                <li className="nav-item cta cta-colored"><Link to="/cart" className="nav-link"><span className="material-icons">shopping_cart</span>[{this.countItem()}]</Link></li>
                             </ul>
                         </div>
                     </div>
