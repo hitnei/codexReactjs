@@ -288,7 +288,7 @@ export default class App extends Component {
           <Route path="/cart">
             <div className="container">
               {cart.length !== 0 ? <Cart cart={cart} removeCart={(id) => this.removeCart(id)} onChangeCart={(qua, item) => this.onChangeCart(qua, item)}/> : ""}
-              {cart.length !== 0 ? <TotalCart list={this.state.list} /> : ""}
+              {cart.length !== 0 ? <TotalCart cart={cart} /> : ""}
             </div>
           </Route>
         </Switch>

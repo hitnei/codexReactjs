@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 
 export default class TotalCart extends Component {
     render() {
-        var { list } = this.props
-        // console.log(list)
+        var { cart } = this.props
         var subtotal = 0
-        list.forEach((val, index) => {
+        cart.forEach((val, index) => {
             if (val.quatity > 0)
                 subtotal += val.quatity *( (100 - val.status) * val.price / 100)
-            // subtotal.toFixed(2)
         })
-        // console.log(subtotal)
         var  delivery = (subtotal * 5 / 100)
         var discount = (subtotal * 10 / 100)
         var total = (subtotal - (delivery + discount)).toFixed(2)
