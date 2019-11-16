@@ -1,29 +1,46 @@
 import React, { Component } from 'react'
 import Item from './Item'
+import Pagination from './Pagination'
 
 export default class Order extends Component {
     onReset = (e) => {
         this.props.onReset()
     }
     render() {
-        var showItem = this.props.setItem.map((val, index) => {
-            if (this.props.categoryCurrent === 0){
+        var {list, setItem, itemPerPage, page, categoryCurrent} = this.props
+        var listLen = list.length
+        var showItem = setItem.map((val, index) => {
+            if (categoryCurrent === 0){
                 return (
                     <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate} onAddCart={this.props.onAddCart}/>
                 )
             }
             else{
                 return(
-                (val.category === this.props.categoryCurrent)? <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onAddCart={this.props.onAddCart}/> : <div key={val.id}></div>
+                (val.category === categoryCurrent)? <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onAddCart={this.props.onAddCart}/> : <div key={val.id}></div>
                 )
             }
         })
+        // var showItem
+        // if (categoryCurrent === 0){
+        //     showItem = setItem.map((val, index) => {
+        //         return (
+        //             <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate} onAddCart={this.props.onAddCart}/>
+        //         )
+        //     })
+        // } else {
+        //     showItem = list.map((val, index) => {
+        //         return(
+        //         (val.category === categoryCurrent)? <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onAddCart={this.props.onAddCart}/> : <div key={val.id}></div>
+        //         )
+        //     })
+        // }
         return (
             <div>
                 <div className="row">
                     {showItem}
                 </div>
-                <div className="row mt-5">
+                <div className="row mt-1">
                     <div className="col text-center">
                         <div className="block-27">
                             {/* <ul>
@@ -39,6 +56,7 @@ export default class Order extends Component {
                         </div>
                     </div>
                 </div>
+                <Pagination listLen={listLen} itemPerPage={itemPerPage} list={list} page={page} onChangePage={this.props.onChangePage} firstPage={this.props.firstPage} previousPage={this.props.previousPage} nextPage={this.props.nextPage} lastPage={this.props.lastPage}/>
             </div>
         )
     }

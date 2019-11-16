@@ -158,7 +158,10 @@ export default class App extends Component {
       ],
       cartControl: 0,
       itemDetail: "null",
-      cart: JSON.parse(localStorage.getItem("cart"))
+      cart: JSON.parse(localStorage.getItem("cart")),
+      itemPerPage: 4,
+      page: 1,
+      listPerPage: []
     }
   }
   findById(list, id) {
@@ -190,42 +193,42 @@ export default class App extends Component {
     })
   }
   onAddCart(item) {
-    item.quatity = item.quatity === 0? 1 : item.quatity
-    var {cart} = this.state
+    item.quatity = item.quatity === 0 ? 1 : item.quatity
+    var { cart } = this.state
     var index = this.findById(cart, item.id)
-    if (index === -1){
+    if (index === -1) {
       cart.push(item)
     } else {
       cart[index].quatity++
     }
-    this.setState({cart})
-    localStorage.setItem("cart", JSON.stringify(cart))    
+    this.setState({ cart })
+    localStorage.setItem("cart", JSON.stringify(cart))
   }
   removeCart(id) {
-    var {cart} = this.state
+    var { cart } = this.state
     var index = this.findById(cart, id)
     cart.splice(index, 1)
     // console.log(cart);
-    
-    this.setState({cart})
-    localStorage.setItem("cart", JSON.stringify(cart))  
-    
+
+    this.setState({ cart })
+    localStorage.setItem("cart", JSON.stringify(cart))
+
   }
   changeDetail(id) {
     // var detail = this.findByIdReturnObj(this.state.list, id)
     // var ind = this.findById(this.state.categories, detail.category)
     // detail.categ = this.state.categories[ind].category
-    var {cart, list} = this.state
+    var { cart, list } = this.state
     var indCart = this.findById(cart, id)
     var indList = this.findById(list, id)
     console.log(indCart + " " + indList);
-    
-    if (indCart !== -1){
+
+    if (indCart !== -1) {
       this.setState({
         itemDetail: cart[indCart]
       })
     } else {
-      if (indList !== -1){
+      if (indList !== -1) {
         list[indList].quatity = 1
         this.setState({
           itemDetail: list[indList]
@@ -243,31 +246,67 @@ export default class App extends Component {
     })
   }
   onChangeCart(qua, val) {
-    var {cart} = this.state
+    var { cart } = this.state
     var index = this.findById(cart, val.id)
-    if (index === -1){
+    if (index === -1) {
       val.quatity = qua
       cart.push(val)
     } else {
       cart[index].quatity = qua
     }
-    this.setState({cart})
+    this.setState({ cart })
     localStorage.setItem("cart", JSON.stringify(cart))
   }
-  componentWillMount(){
+  onChangePage(ind){
+    var {list, itemPerPage} = this.state
+    var listPerPage = list.slice(itemPerPage*(ind-1), itemPerPage*(ind))
+    this.setState({
+      listPerPage,
+      page: ind
+    })
+  }
+  firstPage = () => {
+    this.setState({
+      page: 1
+    })
+  }
+  previousPage = () => {
+    var temp = this.state.page
+    temp--
+    this.setState({
+      page: temp
+    })
+  }
+  lastPage = () => {
+    var {list, itemPerPage} = this.state
+    var len = Math.ceil((list.length/itemPerPage))
+    this.setState({
+      page: len
+    })
+  }
+  nextPage = () => {
+    var temp = this.state.page
+    temp++
+    this.setState({
+      page: temp
+    })
+  }
+  UNSAFE_componentWillMount() {
+    var {list, itemPerPage, page} = this.state
+    var listPerPage = list.slice(itemPerPage*(page-1), itemPerPage*(page))
+    this.setState({listPerPage})
+
     this.setState({
       cart: JSON.parse(localStorage.getItem("cart"))
     })
   }
   render() {
-    var {cart} = this.state
-    // console.log(cart.length);
-    
+    var { cart, list, listPerPage, categoryCurrent, itemPerPage, page } = this.state
     return (
       <Router>
         {/* <div> */}
         <Setup />
-        <Nav cart={cart}/>
+        <Nav cart={cart} />
         <Switch>
           <Route exact path="/">
             <Head />
@@ -275,7 +314,7 @@ export default class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-8 col-lg-10 order-md-last">
-                    <Order setItem={this.state.list} categoryCurrent={this.state.categoryCurrent} onReset={this.onReset} changeDetail={(id) => this.changeDetail(id)} onSendRate={(id, ind) => this.onSendRate(id, ind)} onAddCart={(item) => this.onAddCart(item)}/>
+                    <Order list={list} setItem={listPerPage} categoryCurrent={categoryCurrent} onReset={this.onReset} changeDetail={(id) => this.changeDetail(id)} onSendRate={(id, ind) => this.onSendRate(id, ind)} onAddCart={(item) => this.onAddCart(item)} itemPerPage={itemPerPage} page={page} onChangePage={(ind) => this.onChangePage(ind)} firstPage={this.firstPage} previousPage={this.previousPage} lastPage={this.lastPage} nextPage={this.nextPage}/>
                   </div>
                   <div className="col-md-4 col-lg-2 sidebar">
                     <Sidebar categories={this.state.categories} onReceiveType={this.onReceiveType} />
@@ -287,7 +326,7 @@ export default class App extends Component {
 
           <Route path="/cart">
             <div className="container">
-              {cart.length !== 0 ? <Cart cart={cart} removeCart={(id) => this.removeCart(id)} onChangeCart={(qua, item) => this.onChangeCart(qua, item)}/> : ""}
+              {cart.length !== 0 ? <Cart cart={cart} removeCart={(id) => this.removeCart(id)} onChangeCart={(qua, item) => this.onChangeCart(qua, item)} /> : ""}
               {cart.length !== 0 ? <TotalCart cart={cart} /> : ""}
             </div>
           </Route>
