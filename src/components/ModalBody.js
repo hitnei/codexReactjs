@@ -26,12 +26,6 @@ class ModalBody extends Component {
             tempStar: this.props.itemDetail.rate
         })
     }
-    onChangeStar = (e, id, ind) => {
-        e.preventDefault()        
-        this.setState({
-            tempStar: ind
-        })
-    }
     onCheckType = (i) => {
         var {tempStar} = this.state
         var {rate} = this.props.itemDetail
@@ -41,6 +35,12 @@ class ModalBody extends Component {
         else
             if (tempStar>=i) return "star"
             else return "star_border"
+    }
+    onChangeStar = (e, id, ind) => {
+        e.preventDefault()        
+        this.setState({
+            tempStar: ind
+        })
     }
     onSendRate(e, id, ind){
         e.preventDefault()
