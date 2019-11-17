@@ -222,6 +222,10 @@ export default class App extends Component {
     var indCart = this.findById(cart, id)
     var indList = this.findById(list, id)
     // console.log(indCart + " " + indList);
+<<<<<<< HEAD
+=======
+    cart[indCart].rate = list[indList].rate
+>>>>>>> 59ee20c393b4cfc12e22af93d439992dd748b730
     if (indCart !== -1) {
       cart[indCart].rate = list[indList].rate
       this.setState({
