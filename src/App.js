@@ -221,9 +221,9 @@ export default class App extends Component {
     var { cart, list } = this.state
     var indCart = this.findById(cart, id)
     var indList = this.findById(list, id)
-    console.log(indCart + " " + indList);
-
+    // console.log(indCart + " " + indList);
     if (indCart !== -1) {
+      cart[indCart].rate = list[indList].rate
       this.setState({
         itemDetail: cart[indCart]
       })
@@ -235,8 +235,6 @@ export default class App extends Component {
         })
       }
     }
-    console.log(this.state.itemDetail);
-    
   }
   onSendRate(id, ind) {
     // console.log(id + " " + ind);
@@ -244,7 +242,8 @@ export default class App extends Component {
     var index = this.findById(list, id)
     list[index].rate = ind
     this.setState({
-      list
+      list,
+      itemDetail: list[index]
     })
     
   }
@@ -293,9 +292,6 @@ export default class App extends Component {
     var temp = this.state.page
     
     temp = temp===len? temp : ++temp
-    console.log(temp);
-    console.log(len);
-    console.log(temp===len);
     this.setState({
       page: temp
     })
