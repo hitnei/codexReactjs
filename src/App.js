@@ -222,10 +222,6 @@ export default class App extends Component {
     var indCart = this.findById(cart, id)
     var indList = this.findById(list, id)
     // console.log(indCart + " " + indList);
-<<<<<<< HEAD
-=======
-    cart[indCart].rate = list[indList].rate
->>>>>>> 59ee20c393b4cfc12e22af93d439992dd748b730
     if (indCart !== -1) {
       cart[indCart].rate = list[indList].rate
       this.setState({
@@ -272,33 +268,37 @@ export default class App extends Component {
     })
   }
   firstPage = () => {
-    this.setState({
-      page: 1
-    })
+    //   this.setState({
+    //     page: 1
+    //   })
+    this.onChangePage(1)
   }
   previousPage = () => {
     var temp = this.state.page
     temp = temp===1? temp : --temp
-    this.setState({
-      page: temp
-    })
+    // this.setState({
+    //   page: temp
+    // })
+    this.onChangePage(temp)
   }
   lastPage = () => {
     var {list, itemPerPage} = this.state
     var len = Math.ceil((list.length/itemPerPage))
-    this.setState({
-      page: len
-    })
+    // this.setState({
+    //   page: len
+    // })
+    this.onChangePage(len)
   }
   nextPage = () => {
     var {list, itemPerPage} = this.state
     var len = Math.ceil((list.length/itemPerPage))
     var temp = this.state.page
-    
     temp = temp===len? temp : ++temp
-    this.setState({
-      page: temp
-    })
+    
+    // this.setState({
+    //   page: temp
+    // })
+    this.onChangePage(temp)
   }
   UNSAFE_componentWillMount() {
     var {list, itemPerPage, page} = this.state
@@ -310,6 +310,7 @@ export default class App extends Component {
     })
   }
   render() {
+    console.log(this.state.page);
     var { cart, list, listPerPage, categoryCurrent, itemPerPage, page, itemDetail } = this.state
     return (
       <Router>
