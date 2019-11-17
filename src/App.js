@@ -235,6 +235,8 @@ export default class App extends Component {
         })
       }
     }
+    console.log(this.state.itemDetail);
+    
   }
   onSendRate(id, ind) {
     // console.log(id + " " + ind);
@@ -244,6 +246,7 @@ export default class App extends Component {
     this.setState({
       list
     })
+    
   }
   onChangeCart(qua, val) {
     var { cart } = this.state
@@ -272,7 +275,7 @@ export default class App extends Component {
   }
   previousPage = () => {
     var temp = this.state.page
-    temp--
+    temp = temp===1? temp : --temp
     this.setState({
       page: temp
     })
@@ -285,8 +288,14 @@ export default class App extends Component {
     })
   }
   nextPage = () => {
+    var {list, itemPerPage} = this.state
+    var len = Math.ceil((list.length/itemPerPage))
     var temp = this.state.page
-    temp++
+    
+    temp = temp===len? temp : ++temp
+    console.log(temp);
+    console.log(len);
+    console.log(temp===len);
     this.setState({
       page: temp
     })
@@ -301,7 +310,7 @@ export default class App extends Component {
     })
   }
   render() {
-    var { cart, list, listPerPage, categoryCurrent, itemPerPage, page } = this.state
+    var { cart, list, listPerPage, categoryCurrent, itemPerPage, page, itemDetail } = this.state
     return (
       <Router>
         {/* <div> */}
@@ -334,7 +343,7 @@ export default class App extends Component {
         <Footer />
         <Loader />
         {/* </div> */}
-        <Modal itemDetail={this.state.itemDetail} onSendRate={(id, ind) => this.onSendRate(id, ind)} onChangeCart={(qua, val) => this.onChangeCart(qua, val)} />
+        <Modal itemDetail={itemDetail} onSendRate={(id, ind) => this.onSendRate(id, ind)} onChangeCart={(qua, val) => this.onChangeCart(qua, val)} />
       </Router>
     )
   }
