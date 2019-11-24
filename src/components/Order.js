@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Item from './Item'
 import Pagination from './Pagination'
+import {connect} from 'react-redux'
 
-export default class Order extends Component {
+class Order extends Component {
     onReset = (e) => {
         this.props.onReset()
     }
@@ -61,3 +62,17 @@ export default class Order extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        list: state.list
+    }
+  }
+  const mapDispatchToProps = (dispatch, props) => {
+    return {
+    //   listAll: () => {
+    //     dispatch(actions.toggleForm())
+    //   },
+    }
+  }
+  export default connect(mapStateToProps, mapDispatchToProps)(Order)

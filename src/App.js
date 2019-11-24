@@ -8,16 +8,12 @@ import Order from './components/Order'
 import Sidebar from './components/Sidebar'
 import Cart from './components/Cart'
 import TotalCart from './components/TotalCart'
-// import Cart from './components/Cart'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  // Link
 } from "react-router-dom"
 import Modal from './components/Modal'
-// require("../node_modules/bootstrap-less/js/bootstrap.js")
-// import "../node_modules/bootstrap-less/js/bootstrap.js";
 
 import './App.css'
 
@@ -146,6 +142,116 @@ export default class App extends Component {
         },
         {
           id: 10,
+          status: 30,
+          name: "Floral Jackquard Pullover",
+          price: 120.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-5.webp",
+          category: 4,
+          isCart: false,
+          quatity: 0,
+          rate: 2,
+        },
+        {
+          id: 11,
+          status: 30,
+          name: "Floral Jackquard Pullover",
+          price: 120.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-1.jpg",
+          category: 1,
+          isCart: false,
+          quatity: 0,
+          rate: 3,
+        },
+        {
+          id: 12,
+          status: 50,
+          name: "Floral Pullover",
+          price: 150.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-2.webp",
+          category: 1,
+          isCart: false,
+          quatity: 0,
+          rate: 2,
+        },
+        {
+          id: 13,
+          status: 10,
+          name: "Floral Jackquard Pullover",
+          price: 130.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-3.webp",
+          category: 2,
+          isCart: false,
+          quatity: 0,
+          rate: 5,
+        },
+        {
+          id: 14,
+          status: 30,
+          name: "Floral Jackquard Pullover",
+          price: 120.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-4.webp",
+          category: 3,
+          isCart: false,
+          quatity: 0,
+          rate: 0,
+        },
+        {
+          id: 15,
+          status: 30,
+          name: "Floral Jackquard Pullover",
+          price: 120.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-5.webp",
+          category: 4,
+          isCart: false,
+          quatity: 0,
+          rate: 2,
+        },
+        {
+          id: 16,
+          status: 30,
+          name: "Floral Jackquard Pullover",
+          price: 120.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-1.jpg",
+          category: 1,
+          isCart: false,
+          quatity: 0,
+          rate: 4,
+        },
+        {
+          id: 17,
+          status: 50,
+          name: "Floral Pullover",
+          price: 150.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-2.webp",
+          category: 1,
+          isCart: false,
+          quatity: 0,
+          rate: 0,
+        },
+        {
+          id: 18,
+          status: 10,
+          name: "Floral Jackquard Pullover",
+          price: 130.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-3.webp",
+          category: 2,
+          isCart: false,
+          quatity: 0,
+          rate: 0,
+        },
+        {
+          id: 19,
+          status: 30,
+          name: "Floral Jackquard Pullover",
+          price: 120.00,
+          link: "./Winkel - Free Bootstrap 4 Template by Colorlib_files/product-4.webp",
+          category: 3,
+          isCart: false,
+          quatity: 0,
+          rate: 3,
+        },
+        {
+          id: 20,
           status: 30,
           name: "Floral Jackquard Pullover",
           price: 120.00,
@@ -310,8 +416,7 @@ export default class App extends Component {
     })
   }
   render() {
-    console.log(this.state.page);
-    var { cart, list, listPerPage, categoryCurrent, itemPerPage, page, itemDetail } = this.state
+    var { cart, listPerPage, categoryCurrent, itemPerPage, page, itemDetail } = this.state
     return (
       <Router>
         {/* <div> */}
@@ -324,7 +429,7 @@ export default class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-8 col-lg-10 order-md-last">
-                    <Order list={list} setItem={listPerPage} categoryCurrent={categoryCurrent} onReset={this.onReset} changeDetail={(id) => this.changeDetail(id)} onSendRate={(id, ind) => this.onSendRate(id, ind)} onAddCart={(item) => this.onAddCart(item)} itemPerPage={itemPerPage} page={page} onChangePage={(ind) => this.onChangePage(ind)} firstPage={this.firstPage} previousPage={this.previousPage} lastPage={this.lastPage} nextPage={this.nextPage}/>
+                    <Order setItem={listPerPage} categoryCurrent={categoryCurrent} onReset={this.onReset} changeDetail={(id) => this.changeDetail(id)} onSendRate={(id, ind) => this.onSendRate(id, ind)} onAddCart={(item) => this.onAddCart(item)} itemPerPage={itemPerPage} page={page} onChangePage={(ind) => this.onChangePage(ind)} firstPage={this.firstPage} previousPage={this.previousPage} lastPage={this.lastPage} nextPage={this.nextPage}/>
                   </div>
                   <div className="col-md-4 col-lg-2 sidebar">
                     <Sidebar categories={this.state.categories} onReceiveType={this.onReceiveType} />
