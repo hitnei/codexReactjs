@@ -1,3 +1,5 @@
 export const LIST_ALL = 'LIST_ALL';
 export const RESET_CATEGORY_CURRENT = 'RESET_CATEGORY_CURRENT';
 export const ADD_CART = 'ADD_CART';
+export const CHANGE_DETAIL = 'CHANGE_DETAIL';
+export const CHANGE_LIST = 'CHANGE_LIST';

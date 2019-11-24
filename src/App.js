@@ -62,36 +62,6 @@ class App extends Component {
     localStorage.setItem("cart", JSON.stringify(cart))
 
   }
-  changeDetail(id) {
-    var { list } = this.props
-    var { cart } = this.state
-    var indCart = this.findById(cart, id)
-    var indList = this.findById(list, id)
-    if (indCart !== -1) {
-      cart[indCart].rate = list[indList].rate
-      this.setState({
-        itemDetail: cart[indCart]
-      })
-    } else {
-      if (indList !== -1) {
-        list[indList].quatity = 1
-        this.setState({
-          itemDetail: list[indList]
-        })
-      }
-    }
-  }
-  onSendRate(id, ind) {
-    // console.log(id + " " + ind);
-    var { list } = this.state
-    var index = this.findById(list, id)
-    list[index].rate = ind
-    this.setState({
-      list,
-      itemDetail: list[index]
-    })
-
-  }
   onChangeCart(qua, val) {
     var { cart } = this.state
     var index = this.findById(cart, val.id)
@@ -169,7 +139,7 @@ class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-8 col-lg-10 order-md-last">
-                    <Order changeDetail={(id) => this.changeDetail(id)} onSendRate={(id, ind) => this.onSendRate(id, ind)} onChangePage={(ind) => this.onChangePage(ind)} firstPage={this.firstPage} previousPage={this.previousPage} lastPage={this.lastPage} nextPage={this.nextPage} />
+                    <Order onChangePage={(ind) => this.onChangePage(ind)} firstPage={this.firstPage} previousPage={this.previousPage} lastPage={this.lastPage} nextPage={this.nextPage} />
                   </div>
                   <div className="col-md-4 col-lg-2 sidebar">
                     <Sidebar onReceiveType={this.onReceiveType} />
@@ -189,7 +159,7 @@ class App extends Component {
         <Footer />
         <Loader />
         {/* </div> */}
-        <Modal itemDetail={itemDetail} onSendRate={(id, ind) => this.onSendRate(id, ind)} onChangeCart={(qua, val) => this.onChangeCart(qua, val)} />
+        <Modal itemDetail={itemDetail} onChangeCart={(qua, val) => this.onChangeCart(qua, val)} />
       </Router>
     )
   }

@@ -18,3 +18,17 @@ export const addCart = (item) => {
         item
     }
 }
+
+export const changeDetail = (item) => {
+    return {
+        type: types.CHANGE_DETAIL,
+        item
+    }
+}
+
+export const changeList = (list) => {
+    return {
+        type: types.CHANGE_LIST,
+        list
+    }
+}

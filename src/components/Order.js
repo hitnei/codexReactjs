@@ -12,7 +12,6 @@ class Order extends Component {
         }
     }
 
-
     UNSAFE_componentWillMount() {
         var { itemPerPage, page, list } = this.props
         var listPerPage = list.slice(itemPerPage * (page - 1), itemPerPage * (page))
@@ -31,12 +30,12 @@ class Order extends Component {
         var showItem = this.state.listPerPage.map((val, index) => {
             if (categoryCurrent === 0) {
                 return (
-                    <Item key={val.id} item={val} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate} />
+                    <Item key={val.id} item={val} />
                 )
             }
             else {
                 return (
-                    (val.category === categoryCurrent) ? <Item key={val.id} item={val} changeDetail={this.props.changeDetail} /> : <div key={val.id}></div>
+                    (val.category === categoryCurrent) ? <Item key={val.id} item={val} /> : <div key={val.id}></div>
                 )
             }
         })
@@ -44,13 +43,13 @@ class Order extends Component {
         // if (categoryCurrent === 0){
         //     showItem = setItem.map((val, index) => {
         //         return (
-        //             <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate}/>
+        //             <Item key={val.id} item = {val} />
         //         )
         //     })
         // } else {
         //     showItem = list.map((val, index) => {
         //         return(
-        //         (val.category === categoryCurrent)? <Item key={val.id} item = {val} changeDetail={this.props.changeDetail}/> : <div key={val.id}></div>
+        //         (val.category === categoryCurrent)? <Item key={val.id} item = {val}/> : <div key={val.id}></div>
         //         )
         //     })
         // }
