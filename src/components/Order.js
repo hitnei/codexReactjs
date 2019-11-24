@@ -1,24 +1,42 @@
 import React, { Component } from 'react'
 import Item from './Item'
 import Pagination from './Pagination'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import * as actions from './../actions/index';
 
 class Order extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            listPerPage: []
+        }
+    }
+
+
+    UNSAFE_componentWillMount() {
+        var { itemPerPage, page, list } = this.props
+        var listPerPage = list.slice(itemPerPage * (page - 1), itemPerPage * (page))
+        this.setState({ listPerPage })
+    }
     onReset = (e) => {
         this.props.onReset()
     }
     render() {
-        var {list, setItem, itemPerPage, page, categoryCurrent} = this.props
+        var { list,
+            // setItem, 
+            itemPerPage,
+            page,
+            categoryCurrent } = this.props
         var listLen = list.length
-        var showItem = setItem.map((val, index) => {
-            if (categoryCurrent === 0){
+        var showItem = this.state.listPerPage.map((val, index) => {
+            if (categoryCurrent === 0) {
                 return (
-                    <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate} onAddCart={this.props.onAddCart}/>
+                    <Item key={val.id} item={val} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate} />
                 )
             }
-            else{
-                return(
-                (val.category === categoryCurrent)? <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onAddCart={this.props.onAddCart}/> : <div key={val.id}></div>
+            else {
+                return (
+                    (val.category === categoryCurrent) ? <Item key={val.id} item={val} changeDetail={this.props.changeDetail} /> : <div key={val.id}></div>
                 )
             }
         })
@@ -26,13 +44,13 @@ class Order extends Component {
         // if (categoryCurrent === 0){
         //     showItem = setItem.map((val, index) => {
         //         return (
-        //             <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate} onAddCart={this.props.onAddCart}/>
+        //             <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onSendRate={this.props.onSendRate}/>
         //         )
         //     })
         // } else {
         //     showItem = list.map((val, index) => {
         //         return(
-        //         (val.category === categoryCurrent)? <Item key={val.id} item = {val} changeDetail={this.props.changeDetail} onAddCart={this.props.onAddCart}/> : <div key={val.id}></div>
+        //         (val.category === categoryCurrent)? <Item key={val.id} item = {val} changeDetail={this.props.changeDetail}/> : <div key={val.id}></div>
         //         )
         //     })
         // }
@@ -57,7 +75,7 @@ class Order extends Component {
                         </div>
                     </div>
                 </div>
-                <Pagination listLen={listLen} itemPerPage={itemPerPage} list={list} page={page} onChangePage={this.props.onChangePage} firstPage={this.props.firstPage} previousPage={this.props.previousPage} nextPage={this.props.nextPage} lastPage={this.props.lastPage}/>
+                <Pagination listLen={listLen} itemPerPage={itemPerPage} list={list} page={page} onChangePage={this.props.onChangePage} firstPage={this.props.firstPage} previousPage={this.props.previousPage} nextPage={this.props.nextPage} lastPage={this.props.lastPage} />
             </div>
         )
     }
@@ -65,14 +83,18 @@ class Order extends Component {
 
 const mapStateToProps = state => {
     return {
-        list: state.list
+        list: state.list,
+        categoryCurrent: state.categoryCurrent,
+        setItem: state.listPerPage,
+        itemPerPage: state.itemPerPage,
+        page: state.page,
     }
-  }
-  const mapDispatchToProps = (dispatch, props) => {
+}
+const mapDispatchToProps = (dispatch, props) => {
     return {
-    //   listAll: () => {
-    //     dispatch(actions.toggleForm())
-    //   },
+        onReset: () => {
+            dispatch(actions.resetCategoryCurrent())
+        },
     }
-  }
-  export default connect(mapStateToProps, mapDispatchToProps)(Order)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Order)

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-// import Modal from './Modal';
+import { connect } from 'react-redux'
+import * as actions from './../actions/index';
 
-export default class Item extends Component {
+class Item extends Component {
     constructor(props) {
         super(props);
         this.state={
@@ -74,3 +75,17 @@ export default class Item extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        // list: state.list,
+    }
+}
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onAddCart: (item) => {
+            dispatch(actions.addCart(item))
+        },
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Item)
