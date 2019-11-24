@@ -3,9 +3,9 @@ import * as types from '../constants/ActionTypes'
 var initialState = []
 
 var reducer = (state = initialState, action) => {
-    switch (action.types) {
-        // case types.RESET_CATEGORY_CURRENT:
-        //     return 0
+    switch (action.type) {
+        case types.CHANGE_LISTPERPAGE:
+            return [...action.listPerPage]
         default:
             return state
     }

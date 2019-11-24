@@ -32,3 +32,18 @@ export const changeList = (list) => {
         list
     }
 }
+
+export const changeListPerPage = ([...listPerPage]) => {
+    var listPerPage = [...listPerPage]
+    return {
+        type: types.CHANGE_LISTPERPAGE,
+        listPerPage
+    }
+}
+
+export const changePage = (ind) => {
+    return {
+        type: types.CHANGE_PAGE,
+        ind
+    }
+}

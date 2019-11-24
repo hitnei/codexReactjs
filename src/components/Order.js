@@ -21,11 +21,7 @@ class Order extends Component {
         this.props.onReset()
     }
     render() {
-        var { list,
-            // setItem, 
-            itemPerPage,
-            page,
-            categoryCurrent } = this.props
+        var { list, categoryCurrent } = this.props
         var listLen = list.length
         var showItem = this.state.listPerPage.map((val, index) => {
             if (categoryCurrent === 0) {
@@ -74,7 +70,7 @@ class Order extends Component {
                         </div>
                     </div>
                 </div>
-                <Pagination listLen={listLen} itemPerPage={itemPerPage} list={list} page={page} onChangePage={this.props.onChangePage} firstPage={this.props.firstPage} previousPage={this.props.previousPage} nextPage={this.props.nextPage} lastPage={this.props.lastPage} />
+                <Pagination />
             </div>
         )
     }

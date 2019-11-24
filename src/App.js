@@ -74,47 +74,6 @@ class App extends Component {
     this.setState({ cart })
     localStorage.setItem("cart", JSON.stringify(cart))
   }
-  onChangePage(ind) {
-    var { list, itemPerPage } = this.state
-    var listPerPage = list.slice(itemPerPage * (ind - 1), itemPerPage * (ind))
-    this.setState({
-      listPerPage,
-      page: ind
-    })
-  }
-  firstPage = () => {
-    //   this.setState({
-    //     page: 1
-    //   })
-    this.onChangePage(1)
-  }
-  previousPage = () => {
-    var temp = this.state.page
-    temp = temp === 1 ? temp : --temp
-    // this.setState({
-    //   page: temp
-    // })
-    this.onChangePage(temp)
-  }
-  lastPage = () => {
-    var { list, itemPerPage } = this.state
-    var len = Math.ceil((list.length / itemPerPage))
-    // this.setState({
-    //   page: len
-    // })
-    this.onChangePage(len)
-  }
-  nextPage = () => {
-    var { list, itemPerPage } = this.state
-    var len = Math.ceil((list.length / itemPerPage))
-    var temp = this.state.page
-    temp = temp === len ? temp : ++temp
-
-    // this.setState({
-    //   page: temp
-    // })
-    this.onChangePage(temp)
-  }
   UNSAFE_componentWillMount() {
   //   var { list } = this.props
   //   var { itemPerPage, page } = this.state
@@ -139,7 +98,7 @@ class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-8 col-lg-10 order-md-last">
-                    <Order onChangePage={(ind) => this.onChangePage(ind)} firstPage={this.firstPage} previousPage={this.previousPage} lastPage={this.lastPage} nextPage={this.nextPage} />
+                    <Order />
                   </div>
                   <div className="col-md-4 col-lg-2 sidebar">
                     <Sidebar onReceiveType={this.onReceiveType} />
