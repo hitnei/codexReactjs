@@ -111,9 +111,9 @@ const mapDispatchToProps = (dispatch, props) => {
         changeDetail: (item) => {
             dispatch(actions.changeDetail(item))
         },
-        // changeList: (list) => {
-        //     dispatch(actions.changeList(list))
-        // },
+        onAddCart: (item) => {
+            dispatch(actions.addCart(item))
+        },
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Item)

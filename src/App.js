@@ -90,7 +90,7 @@ class App extends Component {
       <Router>
         {/* <div> */}
         <Setup />
-        <Nav cart={cart} />
+        <Nav />
         <Switch>
           <Route exact path="/">
             <Head />

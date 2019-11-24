@@ -15,7 +15,6 @@ var findById = (list, id) => {
 var reducer = (state = initialState, action) => {
     switch (action.type) {
         case types.ADD_CART:
-            console.log(action)
             var { item } = action
             item.quatity = item.quatity === 0 ? 1 : item.quatity
             var cart = state
