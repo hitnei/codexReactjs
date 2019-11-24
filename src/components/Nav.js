@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import {
     Link
 } from "react-router-dom";
+import {connect} from 'react-redux'
+import * as actions from './../actions/index';
 
-export default class Nav extends Component {
+class Nav extends Component {
     countItem(){
         var {cart} = this.props
         var index = 0;
@@ -45,3 +47,14 @@ export default class Nav extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+      cart: state.cart
+    }
+  }
+  const mapDispatchToProps = (dispatch, props) => {
+    return {
+    }
+  }
+  export default connect(mapStateToProps, mapDispatchToProps)(Nav)
